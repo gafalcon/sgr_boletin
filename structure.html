@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<head>    
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <script>L_PREFER_CANVAS=false; L_NO_TOUCH=false; L_DISABLE_3D=false;</script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.js"></script>
@@ -15,11 +15,26 @@
     <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width,
         initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    {stilo_mapa}
+    <style>
+     .seccion {
+         background-color: #e6ffff;
+         height: 200px;
+         padding: 10px;
+         margin: 10px;
+     }
+     .seccion2 {
+         background-color: #e6ffff;
+         height: 620px;
+         padding: 10px;
+         margin: 10px;
+     }
+
+
+    </style>
 </head>
 <body>
     <header>
-        <div class="container-fluid">
+        <div class="container">
             <img height="60px" alt="" src="imgs/pyweekend-logo.png"/>
             <img height="60px" alt="" src="imgs/logo-espol.png"/>
             <div style="float:right">
@@ -28,33 +43,33 @@
         </div>
     </header>
     <div class="container" style="height:100%">
-        <div style="display: inline-block">
+        <div class="row seccion">
             <h1>Boletín Informativo</h1>
-            {titulo}
+            <!-- Seccion 1 -->
+            <h3>Sección 1</h3>
         </div>
         <div class="row">
-            <div class="col-md-6" style="height:400px">
-                {mapa}
+            <div class="col-md-6">
+                <!-- Seccion 2 -->
+                <div class="row seccion2">
+                    <h3>Sección 2</h3>
+                </div>
             </div>
             <div class="col-md-6">
-                <div class="row">
-                    <h3>Detalles</h3>
-                    {detalles}
+                <div class="row seccion">
+                    <h3>Sección 3</h3>
                 </div>
-                <div class="row">
-                    <h3>Clima</h3>
-                    {clima}
+                <div class="row seccion">
+                    <h3>Sección 4</h3>
                 </div>
-                <div class="row">
+                <div class="row seccion">
+                    <h3>Sección 5</h3>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <h3>Recomendaciones</h3>
-            {recomendaciones}
+        <div class="row seccion">
+            <h3>Sección 6</h3>
         </div>
 
-        <div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     </div>
 </body>
-{script_mapa}

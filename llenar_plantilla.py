@@ -1,9 +1,4 @@
 
-with open("template.html", "r") as template:
-    template = template.read()
-
-print(template)
-
 
 def get_map(filename):
     with open(filename, "r") as html_file:
@@ -25,28 +20,43 @@ def get_map(filename):
 
 
 def leer_html_file(html_file):
+    """Devuelve un str con todo el contenido del archivo"""
     with open(html_file, "r") as f:
         contenido = f.read()
     return contenido
 
 def crear_infograma(map_file, infograma_file):
+    """
+    Crea boletin html a partir de plantilla
+    map_file: archivo html con un mapa generado
+    infograma_file: archivo html donde crear boletin
+    """
     style, map_div, script = get_map(map_file)
 
-    template = leer_html_file("template.html")
+    template = leer_html_file("plantilla.html")
     titulo = leer_html_file("titulo.html")
     detalles = leer_html_file("detalles.html")
     clima = leer_html_file("clima.html")
     recomendaciones = leer_html_file("recomendaciones.html")
 
-    template = template.format(stilo_mapa=style,
-                               mapa=map_div,
+    template = template.format(estilo_mapa=style,
+                               seccion1=titulo,
+                               seccion2=map_div,
                                script_mapa=script,
-                               titulo=titulo,
-                               detalles=detalles,
-                               recomendaciones=recomendaciones,
-                               clima=clima
+                               seccion3=detalles,
+                               seccion4=clima,
+                               seccion5="",
+                               seccion6=recomendaciones,
                                )
 
     with open(infograma_file, "w") as f:
         f.write(template)
-    return template
+
+m = folium.Map(
+    location=[-0.107, -77.54],
+    height=400,
+    zoom_start=8
+)
+m.save("mapa.html")
+
+crear_infograma("mapa.html", "infograma.html")
