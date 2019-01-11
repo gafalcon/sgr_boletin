@@ -1,17 +1,48 @@
+import folium
+import requests
+
+URL_SERVIDOR = "http://192.188.159.28:81"
+URL_SERVIDOR = "http://127.0.0.1:3000"
+def consultar_evento(id_evento):
+    res = requests.get(URL_SERVIDOR+"/evento/{}".format(id_evento))
+    return res.json()
+
+def consultar_temperatura(lat, lon):
+    res = requests.get(URL_SERVIDOR+"/temperatura?lat={}&lon={}".format(lat, lon))
+    return res.json()
+
+def consultar_ids():
+    """Retorna lista con ids de todos los eventos registrados en la base de datos"""
+    res = requests.get(URL_SERVIDOR+"/evento")
+    return res.json()
+
+def consultar_todos():
+    """
+    Retorna una lista de listas con la informacion de todos los eventos registrados en la base de datos
+    """
+    res = requests.get(URL_SERVIDOR+"/all")
+    return res.json()
 
 
-def get_map(filename):
+def leer_folium_map(filename):
+    """
+    Lee archivo html con el codigo de un mapa creado utilizando folium.
+    Retorna las diferentes secciones necesarias para poder insertar el mapa en la plantilla html
+    """
     with open(filename, "r") as html_file:
         line = ""
+        # Extraer stilo del mapa
         while line.find("<style>") == -1:
             line = html_file.readline()
         style = line
         while line.strip() != "</style>":
             line = html_file.readline()
             style += line
+        # Extraer div del mapa
         div = ""
         while div.find("</div>") == -1:
             div = html_file.readline()
+        # Extraer script del mapa
         script = ""
         while script.find("<script>") == -1:
             script = html_file.readline()
@@ -31,7 +62,7 @@ def crear_infograma(map_file, infograma_file):
     map_file: archivo html con un mapa generado
     infograma_file: archivo html donde crear boletin
     """
-    style, map_div, script = get_map(map_file)
+    style, map_div, script = leer_folium_map(map_file)
 
     template = leer_html_file("plantilla.html")
     titulo = leer_html_file("titulo.html")
@@ -51,6 +82,12 @@ def crear_infograma(map_file, infograma_file):
 
     with open(infograma_file, "w") as f:
         f.write(template)
+
+def nuevo_evento(id_evento):
+    # TODO implementar
+    return ""
+
+
 
 m = folium.Map(
     location=[-0.107, -77.54],
